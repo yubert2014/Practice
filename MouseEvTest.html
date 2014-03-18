@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <!-- タイトル -->
+    <title>マウスイベント</title>
+
+</head>
+<body>
+
+<!-- 描画場所 -->
+<div id="WebGL-output"></div>
+
+<script type="text/javascript">
+
+    // マウスクリックイベントを拾う
+    document.onmousedown = function(e) {
+
+        // クライアント座標系を基点としたマウスカーソルの座標を取得
+        var mouse_x = e.clientX;
+        var mouse_y = e.clientY;
+
+        alert(mouse_x);
+    }
+</script>
+
+</body>
+</html>
