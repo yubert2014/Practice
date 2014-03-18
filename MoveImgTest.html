@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <!-- タイトル -->
+    <title>マウスイベント</title>
+
+</head>
+<body>
+<!-- 画像データを表示　-->
+<img src="1.jpg" id="Image1"/>
+
+<script type="text/javascript">
+
+    var img = document.getElementById("Image1");
+
+    // マウスクリックイベントを拾う
+    document.onmousedown = function(e)
+    {
+        // クライアント座標系を基点としたマウスカーソルの座標を取得
+        var mouse_x = e.clientX;
+        var mouse_y = e.clientY;
+
+        // マウスの座標を使って、幅、高さを変更
+        img.width = mouse_x;
+        img.height = mouse_y;
+    }
+</script>
+
+</body>
+</html>
