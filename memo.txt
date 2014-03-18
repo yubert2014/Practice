@@ -1,0 +1,4 @@
+﻿メモ
+
+Imageオブジェクトも、document.getElementById("id名");
+で取得できる
