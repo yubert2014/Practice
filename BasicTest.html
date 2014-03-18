@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <!-- タイトル -->
+    <title>基本シーン</title>
+
+    <!-- 外部ライブラリの読み込み -->
+    <script type="text/javascript" src="three.js"></script>
+    <script type="text/javascript" src="jquery.js"></script>
+
+</head>
+<body>
+
+<!-- 描画場所 -->
+<div id="WebGL-output">
+</div>
+
+<!-- javascript -->
+<script type="text/javascript">
+
+    // ロード時に呼ばれる
+    $(function () {
+
+        // シーンを作る
+        var scene = new THREE.Scene();
+
+        // カメラを作る
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        // レンダラを準備
+        var renderer = new THREE.WebGLRenderer();
+
+        renderer.setClearColorHex(0xEEEEEE, 1.0);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMapEnabled = true;
+
+        // 平面を準備
+        var planeGeometry = new THREE.PlaneGeometry(30,20);
+        var planeMaterial =    new THREE.MeshLambertMaterial({color: 0xffffff});
+        var plane = new THREE.Mesh(planeGeometry,planeMaterial);
+        plane.receiveShadow  = true;
+
+        // 地面を回転
+        plane.rotation.x=-0.5*Math.PI;
+        plane.position.x=15
+        plane.position.y=0
+        plane.position.z=0
+
+        // シーンに追加
+        scene.add(plane);
+
+        // スフィアを準備
+        var sphereGeometry = new THREE.SphereGeometry(4,20,20);
+        var sphereMaterial = new THREE.MeshLambertMaterial({color: 0x7777ff});
+        var sphere = new THREE.Mesh(sphereGeometry,sphereMaterial);
+
+        // スフィアのポジション
+        sphere.position.x=20;
+        sphere.position.y=4;
+        sphere.position.z=2;
+        sphere.castShadow=true;
+
+        // シーンに追加
+        scene.add(sphere);
+
+        // カメラポジション、向きを設定
+        camera.position.x = -30;
+        camera.position.y = 40;
+        camera.position.z = 30;
+        camera.lookAt(scene.position);
+
+        // スポットライトを準備
+        var spotLight = new THREE.SpotLight( 0xffffff );
+        spotLight.position.set( -40, 60, -10 );
+        spotLight.castShadow = true;
+        scene.add( spotLight );
+
+        // htmlエレメントに追加
+        $("#WebGL-output").append(renderer.domElement);
+
+        // レンダリング
+        renderer.render(scene, camera);
+    });
+
+
+
+</script>
+</body>
+</html>
