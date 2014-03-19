@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <!-- 文字コード -->
+    <meta charset="utf-8">
+
+    <!-- タイトル -->
+    <title>基本シーン</title>
+
+    <!-- 外部ライブラリの読み込み -->
+    <script type="text/javascript" src="three.js"></script>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script src="gentilis_bold.typeface.js"></script>
+</head>
+<body>
+
+<!-- 描画場所 -->
+<div id="WebGL-output">
+</div>
+
+<!-- javascript -->
+<script type="text/javascript">
+
+    // ロード時に呼ばれる
+    $(function () {
+
+        // シーンを作る
+        var scene = new THREE.Scene();
+
+        scene.position.x = 0;
+
+        // カメラを作る
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        // レンダラを準備
+        var renderer = new THREE.WebGLRenderer();
+
+        renderer.setClearColorHex(0xEEEEEE, 1.0);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMapEnabled = true;
+
+        var testText = new THREE.TextGeometry( 'Test Text', {
+            size: 20, height: 40, curveSegments: 3,
+            font: "gentilis", weight: "bold", style: "normal",
+            bevelThickness: 1, bevelSize: 2, bevelEnabled: true
+        });
+        var Material = new THREE.MeshLambertMaterial( { color: 0xff0000 } );
+        var Text = new THREE.Mesh( testText, Material );
+
+        scene.add( Text );
+
+        // カメラポジション、向きを設定
+        camera.position.x = 20;
+        camera.position.y = 0;
+        camera.position.z = 400;
+        camera.lookAt(scene.position);
+
+        // スポットライトを準備
+        var spotLight = new THREE.SpotLight( 0xffffff );
+        spotLight.position.set( -40, 60, -10 );
+        spotLight.castShadow = true;
+        scene.add( spotLight );
+
+        // htmlエレメントに追加
+        $("#WebGL-output").append(renderer.domElement);
+
+        // レンダリング
+        renderer.render(scene, camera);
+    });
+
+
+
+</script>
+</body>
+</html>
